@@ -19,12 +19,12 @@ async function login(email, password) {
     return user;
 }
 
-async function signup(firstName, lastName, username, email, password) {
+async function signup(firstName, lastName, username, email, password, url_id) {
     if (!firstName || !lastName || !username || !email || !password) return Promise.reject('some info are missing');
     
     const hash = await bcrypt.hash(password, saltRounds);
     logger.debug(`auth.service - signup with email: ${email}, username: ${username}`);
-    return UserService.add({ firstName, lastName, username, email, password: hash });
+    return UserService.add({ firstName, lastName, username, email, password: hash, url_id});
 }
 
 module.exports = {

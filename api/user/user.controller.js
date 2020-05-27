@@ -2,10 +2,6 @@ const UserService = require('./user.service');
 
 async function getUsers(req, res) {
 
-    console.log(req);
-    // const collaborators = req.body;
-    // console.log(collaborators);
-
     try {
         const users = await UserService.query()
         res.send(users)
