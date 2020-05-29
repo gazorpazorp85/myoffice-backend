@@ -55,8 +55,23 @@ async function add(user) {
     }
 }
 
+async function getByFilter(filterBy) {
+    const collection = await dbService.getCollection('user');
+    try {
+        const user = await collection.findOne(filterBy);
+        delete user.password;
+        delete user.email;
+        delete user.url_id;
+        return user;
+    } catch (err) {
+        console.log('ERROR: can\'t find user');
+        throw err;
+    }
+}
+
 module.exports = {
     query,
     getByEmail,
-    add
+    add,
+    getByFilter
 }

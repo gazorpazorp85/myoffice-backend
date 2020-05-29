@@ -22,7 +22,20 @@ async function getUserCollaborators(req, res) {
     }
 }
 
+async function getCollaborator(req, res) {
+
+    const filterBy = req.body;
+
+    try {
+        const collaborator = await UserService.getByFilter(filterBy);
+        res.send(collaborator);
+    } catch (err) {
+        res.status(404).send({ error: 'couldn\'t find collaborator' });
+    }
+}
+
 module.exports = {
     getUsers,
-    getUserCollaborators
+    getUserCollaborators,
+    getCollaborator
 }
