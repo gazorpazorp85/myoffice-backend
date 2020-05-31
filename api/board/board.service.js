@@ -37,7 +37,7 @@ async function add(board) {
 
     try {
         await collection.insertOne(board);
-        return (board)
+        return board;
     } catch (err) {
         logger.error('ERROR: Can\'t create board');
         throw err;
@@ -64,6 +64,7 @@ async function update(boardId, board) {
     try {
         await collection.updateOne({ "_id": ObjectId(boardId) }, { $set: board });
         board._id = boardId;
+        return board;
     } catch (err) {
         logger.error('ERROR: Can\'t update board');
         throw err;

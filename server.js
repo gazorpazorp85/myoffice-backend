@@ -15,7 +15,7 @@ const boardRoutes = require('./api/board/board.routes');
 const userRoutes = require('./api/user/user.routes');
 
 app.use(cookieParser());
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb', extended: true}));
 app.use(session({
     secret: 'iaghbvj48789rjnckv',
     resave: false,

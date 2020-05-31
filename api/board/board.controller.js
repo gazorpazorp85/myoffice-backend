@@ -57,6 +57,7 @@ async function updateBoard(req, res) {
 
     try {
         const board = await BoardService.update(id, req.body);
+        console.log(board);
         res.send(board);
     } catch (err) {
         logger.error('Can\'t update board');
