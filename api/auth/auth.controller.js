@@ -10,7 +10,7 @@ async function login(req, res) {
         req.session.save();
         res.json(user);
     } catch (err) {
-        res.status(401).send({ error: 'could not login, please try later' });
+        res.status(401).send('could not login, please try later');
     }
 }
 

@@ -34,8 +34,21 @@ async function getCollaborator(req, res) {
     }
 }
 
+async function getCollaborationRequest(req, res) {
+
+    const { collaborator, request } = req.body;
+
+    try {
+        await UserService.collaborationRequestHandler(collaborator, request);
+        res.end();
+    } catch (err) {
+        res.status(404).send({ error: 'couldn\'t send collaboration request' });
+    }
+}
+
 module.exports = {
     getUsers,
     getUserCollaborators,
-    getCollaborator
+    getCollaborator,
+    getCollaborationRequest
 }
