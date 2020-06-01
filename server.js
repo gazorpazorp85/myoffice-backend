@@ -12,6 +12,7 @@ const io = require('socket.io')(http);
 const authRoutes = require('./api/auth/auth.routes');
 const connectSockets = require('./api/socket/socket.routes');
 const boardRoutes = require('./api/board/board.routes');
+const requestRoutes = require('./api/request/request.routes');
 const userRoutes = require('./api/user/user.routes');
 
 app.use(cookieParser());
@@ -35,6 +36,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/board', boardRoutes);
+app.use('/api/request', requestRoutes);
 app.use('/api/user', userRoutes);
 app.get('/*', function(req,res) {
     res.sendFile(path.resolve(__dirname, 'public/index.html'))

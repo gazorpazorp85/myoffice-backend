@@ -15,5 +15,13 @@ function connectSockets(io) {
         socket.on('sendNotification', (notification) => {
             socket.broadcast.to(socket.boardId).emit('getNotification', notification);
         })
+        socket.on('requestSent', (request) => {
+            console.log('im here requestSent');
+            socket.broadcast.to(socket.userId).emit('sendRequest', request);
+        })
+        socket.on('sendCollaborationRequestNotification', (notification) => {
+            console.log('im here sendNotification');
+            socket.broadcast.to(socket.userId).emit('getCollaborationRequestNotification', notification);
+        })
     })
 }

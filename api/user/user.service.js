@@ -62,44 +62,9 @@ async function getByFilter(filterBy) {
         const user = await collection.findOne(filterBy);
         delete user.password;
         delete user.email;
-        delete user.url_id;
         return user;
     } catch (err) {
         logger.error('ERROR: can\'t find user');
-        throw err;
-    }
-}
-
-async function collaborationRequestHandler(collaborator, request) {
-
-    const collection = await dbService.getCollection('user');
-    const user = await _getById(collaborator._id);
-    console.log('user: ', user);
-    // console.log('im here', collaborator, request);
-    const userId = user._id;
-    delete user._id;
-    user.requests = [];
-    user.requests.push(request);
-    console.log('user after adding requests: ', user);
-
-    try {
-        const updatedUser = await collection.updateOne({ "_id": ObjectId(userId) }, { $set: user });
-        console.log('updatedUser: ', updatedUser);
-    } catch (err) {
-        logger.error('Error: Can\'t process collaboration request');
-    }
-
-}
-
-async function _getById(userId) {
-
-    const collection = await dbService.getCollection('user');
-
-    try {
-        const user = await collection.findOne({ "_id": ObjectId(userId) });
-        return user;
-    } catch (err) {
-        logger.error('ERROR: Can\'t find user by Id');
         throw err;
     }
 }
@@ -109,5 +74,4 @@ module.exports = {
     getByEmail,
     add,
     getByFilter,
-    collaborationRequestHandler
 }

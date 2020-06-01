@@ -8,7 +8,7 @@ async function login(req, res) {
         const user = await AuthService.login(email, password);
         req.session.user = user;
         req.session.save();
-        res.json(user);
+        res.json(req.session.user);
     } catch (err) {
         res.status(401).send('could not login, please try later');
     }
@@ -16,9 +16,9 @@ async function login(req, res) {
 
 async function signup(req, res) {
     try {
-        const { firstName, lastName, username, email, password, url_id } = req.body;
-        logger.debug(firstName + ',' + lastName + ',' + username + ',' + email + ',' + password + ',' + url_id);
-        const account = await AuthService.signup(firstName, lastName, username, email, password, url_id);
+        const { firstName, lastName, username, email, password } = req.body;
+        logger.debug(firstName + ',' + lastName + ',' + username + ',' + email + ',' + password);
+        const account = await AuthService.signup(firstName, lastName, username, email, password);
         logger.debug(`auth.route - new account created: ` + JSON.stringify(account));
         const user = await AuthService.login(email, password);
         req.session.user = user;
